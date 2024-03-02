@@ -9,6 +9,9 @@ const { width, height } = Dimensions.get('window');
 export default function HomeScreen() {
     const [showSearch, toggleSearch] = useState(false);
     const [locations, setLocations] = useState([1,2,3]);
+    const handleLocation = (loc) => {
+        console.log('location:', loc);
+    }
     return (
         <View style={styles.container}>
             <StatusBar style="light" />
@@ -46,6 +49,7 @@ export default function HomeScreen() {
                                         let borderClass = showBorder? 'border-b-2-gray-400': '';
                                         return (
                                             <TouchableOpacity
+                                                onPress = {() => handleLocation(loc)}
                                                 key = {index}
                                                 className={"flex-row items-center justify-between border-0 p-3 px-4 mb-1 " + borderClass }
                                             >
@@ -58,6 +62,47 @@ export default function HomeScreen() {
                             </View>
                         ):null
                     }
+                </View>
+                {/* ForeCast Section */}
+                <View style={styles.forecastSection}>
+                    <Text style={styles.location}>
+                        London,
+                        <Text style={styles.country}> United Kingdom</Text>
+                    </Text>
+                    <View style={styles.weatherIconContainer}>
+                        <Image
+                            source={require("../assets/images/sunny.png")}
+                            style={styles.weatherIcon}
+                        />
+                    </View>
+                    <View style={styles.temperatureContainer}>
+                        <Text style={styles.temperature}>
+                            23°
+                        </Text>
+                        <Text style={styles.weatherDescription}>
+                            Sunny
+                        </Text>
+                    </View>
+                    <View style={styles.infoRow}>
+                        <View style={styles.infoItem}>
+                            <Image source={require("../assets/images/wind.png")} style={styles.infoIcon}/>
+                            <Text style={styles.infoText}>
+                                22km/h
+                            </Text>
+                        </View>
+                        <View style={styles.infoItem}>
+                            <Image source={require("../assets/images/drop.png")} style={styles.infoIcon}/>
+                            <Text style={styles.infoText}>
+                                22%
+                            </Text>
+                        </View>
+                        <View style={styles.infoItem}>
+                            <Image source={require("../assets/images/sunrise.png")} style={styles.infoIcon}/>
+                            <Text style={styles.infoText}>
+                                6:05 AM
+                            </Text>
+                        </View>
+                    </View>
                 </View>
             </SafeAreaView>
         </View>
@@ -98,6 +143,69 @@ const styles = StyleSheet.create({
     iconButton: {
         borderRadius: 999,
         padding: 8,
+        marginLeft: 8,
+    },
+    forecastSection: {
+        marginHorizontal: 16,
+        justifyContent: 'center',
+        flex: 1,
+        marginBottom: 8,
+    },
+    location: {
+        color: 'white',
+        textAlign: 'center',
+        fontSize: 24,
+        fontWeight: 'bold',
+    },
+    country: {
+        fontSize: 18,
+        fontWeight: '600', 
+        color: 'rgba(229, 231, 235, 1)', 
+    },
+    weatherIconContainer: {
+        flexDirection: 'row',
+        marginVertical: 40,
+        justifyContent: 'center',
+    },
+    weatherIcon: {
+        width: 208, 
+        height: 208,
+    },
+    temperatureContainer: {
+        alignItems: 'center',
+        marginTop: 8,
+        marginBottom: 8,
+    },
+    temperature: {
+        color: 'white',
+        textAlign: 'center',
+        fontWeight: 'bold',
+        fontSize: 72,
+        marginLeft: 20,
+    },
+    weatherDescription: {
+        color: 'white',
+        textAlign: 'center',
+        fontSize: 20, 
+        letterSpacing: 0.025, 
+    },
+    infoRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginHorizontal: 16,
+    },
+    infoItem: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    infoIcon: {
+        width: 24, 
+        height: 24,
+    },
+    infoText: {
+        color: 'white',
+        fontWeight: '600', 
+        fontSize: 16, 
         marginLeft: 8,
     },
 });
