@@ -186,13 +186,14 @@ const styles = StyleSheet.create({
     weatherDescription: {
         color: 'white',
         textAlign: 'center',
-        fontSize: 20, 
+        fontSize: 25, 
         letterSpacing: 0.025, 
     },
     infoRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         marginHorizontal: 16,
+        marginTop: 18,
     },
     infoItem: {
         flexDirection: 'row',
