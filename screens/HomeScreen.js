@@ -41,26 +41,25 @@ export default function HomeScreen() {
                         </TouchableOpacity>
                     </View>
                     {
-                        locations.length > 0 && showSearch?(
-                            <View className="absolute w-full bg-gray-300 top-16 rounded-3xl">
+                        locations.length > 0 && showSearch ? (
+                            <View style={styles.locationsContainer}>
                                 {
                                     locations.map((location, index) => {
-                                        let showBorder = index+1 != locations.length;
-                                        let borderClass = showBorder? 'border-b-2-gray-400': '';
+                                        const showBorder = index + 1 !== locations.length;
                                         return (
                                             <TouchableOpacity
-                                                onPress = {() => handleLocation(loc)}
-                                                key = {index}
-                                                className={"flex-row items-center justify-between border-0 p-3 px-4 mb-1 " + borderClass }
+                                                onPress={() => handleLocation(loc)}
+                                                key={index}
+                                                style={[styles.locationItem, showBorder && styles.locationItemBorder]}
                                             >
-                                                <MapPinIcon size="20" color="gray" />
-                                                <Text className = "text-black text-lg ml-2">London, United Kingdom</Text>
+                                                <MapPinIcon size={20} color="gray" />
+                                                <Text style={styles.locationText}>London, United Kingdom</Text>
                                             </TouchableOpacity>
                                         )
                                     })
                                 }
                             </View>
-                        ):null
+                        ) : null
                     }
                 </View>
                 {/* ForeCast Section */}
@@ -132,7 +131,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'flex-end',
         alignItems: 'center',
-        borderRadius: 999,
+        borderRadius: 30,
         padding: 10,
     },
     textInput: {
@@ -173,7 +172,6 @@ const styles = StyleSheet.create({
     },
     temperatureContainer: {
         alignItems: 'center',
-        marginTop: 8,
         marginBottom: 8,
     },
     temperature: {
@@ -207,6 +205,32 @@ const styles = StyleSheet.create({
         color: 'white',
         fontWeight: '600', 
         fontSize: 16, 
+        marginLeft: 8,
+    },
+    locationsContainer: {
+        position: 'absolute',
+        width: '100%',
+        backgroundColor: '#D1D5DB', 
+        top: 64, 
+        borderRadius: 25,
+        padding: 12,
+        marginTop: 2,
+    },
+    locationItem: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingVertical: 12,
+        paddingHorizontal: 16,
+        marginBottom: 4,
+        justifyContent: 'flex-start', 
+    },
+    locationItemBorder: {
+        borderBottomWidth: 2,
+        borderBottomColor: '#9CA3AF',
+    },
+    locationText: {
+        color: 'black',
+        fontSize: 18, 
         marginLeft: 8,
     },
 });
