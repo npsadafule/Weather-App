@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, SafeAreaView, TextInput, TouchableOpacity, Image, StyleSheet, Dimensions, Text } from 'react-native';
+import { View, SafeAreaView, TextInput, TouchableOpacity, Image, StyleSheet, Dimensions, Text, ScrollView } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { theme } from '../theme';
 import { MagnifyingGlassIcon } from 'react-native-heroicons/outline';
@@ -107,7 +107,14 @@ export default function HomeScreen() {
                 <View className="mb-2 space-y-3">
                     <View className="flex-row items-center mx-5 space-x-2">
                         <CalendarDaysIcon size="22" color="white" />
+                        <Text className = "text-white text-base">Daily Forecast</Text>
                     </View>
+                    <ScrollView 
+                    horizontal 
+                    contentContainerStyle = {{paddingHorizontal: 15}}
+                    >
+                        <View className = "flex justify-center items-center w-24 rounded-3xl py-3 space-y1 mr-4"></View>
+                    </ScrollView>
                 </View>
             </SafeAreaView>
         </View>
