@@ -10,9 +10,11 @@ import { fetchLocations } from '../api/weather.js';
 export default function HomeScreen() {
     const [showSearch, toggleSearch] = useState(false);
     const [locations, setLocations] = useState([1,2,3]);
+    
     const handleLocation = (loc) => {
         console.log('location:', loc);
     }
+    
     const handleSearch = value => {
         if(value.length > 2) {
             fetchLocations({cityName: value}).then(data => {
@@ -20,7 +22,7 @@ export default function HomeScreen() {
             })
         }
     }
-    const handleTextDebounce = useCallback(debounce(handleSearch, 1000), []);
+    const handleTextDebounce = useCallback(debounce(handleSearch, 1200), []);
     return (
         <View className = "flex-1 relative">
             <StatusBar style="light" />
@@ -57,7 +59,7 @@ export default function HomeScreen() {
                         locations.length > 0 && showSearch ? (
                             <View className = "abosolute w-full bg-gray-300 top-4 rounded-3xl">
                                 {
-                                    locations.map((location, index) => {
+                                    locations.map((locations, index) => {
                                         const showBorder = index + 1 !== locations.length;
                                         const borderClass = showBorder? "border-b-2 border-b-gray-400" : " ";
                                         return (
