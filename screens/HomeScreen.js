@@ -5,14 +5,24 @@ import { theme } from '../theme';
 import  { debounce } from 'lodash';
 import { MagnifyingGlassIcon } from 'react-native-heroicons/outline';
 import {CalendarDaysIcon, MapPinIcon } from 'react-native-heroicons/solid';
-import { fetchLocations } from '../api/weather.js';
+import { fetchLocations, fetchWeatherForecast } from '../api/weather.js';
 
 export default function HomeScreen() {
     const [showSearch, toggleSearch] = useState(false);
     const [locations, setLocations] = useState([]);
+    const [weather, setWeather] = useState({});
     
     const handleLocation = (loc) => {
         console.log('location:', loc);
+        setLocations([]);   
+        toggleSearch(false);
+        fetchWeatherForecast({
+            cityName: loc.name, 
+            days: '7'
+        }).then(data => {
+            setWeather(data);
+            console.log('got forecast:', data);
+        })
     }
     
     const handleSearch = value => {
@@ -23,6 +33,9 @@ export default function HomeScreen() {
         }
     }
     const handleTextDebounce = useCallback(debounce(handleSearch, 1200), []);
+
+    const {current, location} = weather;
+
     return (
         <View className = "flex-1 relative">
             <StatusBar style="light" />
@@ -81,21 +94,21 @@ export default function HomeScreen() {
                 {/* ForeCast Section */}
                 <View className = "mx-4 flex justify-around flex-1 mb-2">
                     <Text className = "text-white text-2xl text-center font-bold">
-                        London,
-                        <Text className = "text-gray-300 text-2lg font-semibold"> United Kingdom</Text>
+                        {location?.name},
+                        <Text className = "text-gray-300 text-2lg font-semibold"> {" " + location?.country}</Text>
                     </Text>
                     <View className = "flex-row justify-center">
                         <Image
-                            source={require("../assets/images/sunny.png")}
+                            source={{uri: 'https:' + current?.condition?.icon}}
                             className = "w-52 h-52"
                         />
                     </View>
                     <View className = "space-y-2">
                         <Text className = "text-center font-bold text-white text-6xl ml-5">
-                            23°
+                            {current?.temp_c}°
                         </Text>
                         <Text className = "text-center text-white text-xl tracking-widest">
-                            Sunny
+                            {current?.condition?.text}
                         </Text>
                     </View>
                     <View className = "flex-row justify-between mx-4">
