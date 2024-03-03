@@ -9,7 +9,7 @@ import { fetchLocations } from '../api/weather.js';
 
 export default function HomeScreen() {
     const [showSearch, toggleSearch] = useState(false);
-    const [locations, setLocations] = useState([1,2,3]);
+    const [locations, setLocations] = useState([]);
     
     const handleLocation = (loc) => {
         console.log('location:', loc);
@@ -18,7 +18,7 @@ export default function HomeScreen() {
     const handleSearch = value => {
         if(value.length > 2) {
             fetchLocations({cityName: value}).then(data => {
-            console.log('got Locations:', data);
+            setLocations(data);
             })
         }
     }
@@ -59,7 +59,7 @@ export default function HomeScreen() {
                         locations.length > 0 && showSearch ? (
                             <View className = "abosolute w-full bg-gray-300 top-4 rounded-3xl">
                                 {
-                                    locations.map((locations, index) => {
+                                    locations.map((loc, index) => {
                                         const showBorder = index + 1 !== locations.length;
                                         const borderClass = showBorder? "border-b-2 border-b-gray-400" : " ";
                                         return (
@@ -69,7 +69,7 @@ export default function HomeScreen() {
                                                 className = {"flex-row items-center border-0 p-3 px-4 mb-1" + borderClass}
                                             >
                                                 <MapPinIcon size={20} color="gray" />
-                                                <Text className = "text-black text-lg ml-2">London, United Kingdom</Text>
+                                                <Text className = "text-black text-lg ml-2">{loc?.name}, {loc?.country}</Text>
                                             </TouchableOpacity>
                                         )
                                     })
