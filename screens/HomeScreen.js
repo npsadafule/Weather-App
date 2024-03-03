@@ -3,7 +3,7 @@ import { View, SafeAreaView, TextInput, TouchableOpacity, Image, StyleSheet, Dim
 import { StatusBar } from 'expo-status-bar';
 import { theme } from '../theme';
 import { MagnifyingGlassIcon } from 'react-native-heroicons/outline';
-import {MapPinIcon } from 'react-native-heroicons/solid';
+import {CalendarDaysIcon, MapPinIcon } from 'react-native-heroicons/solid';
 const { width, height } = Dimensions.get('window');
 
 export default function HomeScreen() {
@@ -101,6 +101,12 @@ export default function HomeScreen() {
                                 6:05 AM
                             </Text>
                         </View>
+                    </View>
+                </View>
+                {/* Future Forecast */}
+                <View className="mb-2 space-y-3">
+                    <View className="flex-row items-center mx-5 space-x-2">
+                        <CalendarDaysIcon size="22" color="white" />
                     </View>
                 </View>
             </SafeAreaView>
