@@ -13,47 +13,51 @@ export default function HomeScreen() {
         console.log('location:', loc);
     }
     return (
-        <View style={styles.container}>
+        <View className = "flex-1 relative">
             <StatusBar style="light" />
             <Image
                 blurRadius={30}
                 source={require("../assets/images/bg.png")}
-                style={styles.backgroundImage}
+                className = "absolute h-full w-full"
             />
-            <SafeAreaView style={styles.safeArea}>
+            <SafeAreaView className = "flex flex-1">
                 {/* Search Bar */}
-                <View style={styles.searchBarContainer}>
-                    <View style={[styles.searchBar, {backgroundColor: showSearch? theme.bgWhite(0.2): 'transparent'}]}>
+                <View style={{height: "7%"}} className = "mx-4 relative z-50">
+                    <View className = "flex-row  justify-end items-center rounded-full"
+                        style = {{backgroundColor: showSearch? theme.bgWhite(0.3):"transparent"}}
+                    >
                         {
                             showSearch?(
                                 <TextInput
                                     placeholder='Search city'
                                     placeholderTextColor='lightgray'
-                                    style={styles.textInput}
+                                    className = "pl-6 h-10 pb-1 flex-1 text-base text-white"
                                 />
                             ):null
                         }
                         <TouchableOpacity
                             onPress = {() => toggleSearch(!showSearch)}
-                            style={[styles.iconButton, {backgroundColor: theme.bgWhite(0.3)}]}
+                            style={{backgroundColor: theme.bgWhite(0.3)}}
+                            className = "p-3 m-1 rounded-full"
                         >
-                            <MagnifyingGlassIcon color="white" size={25} />
+                            <MagnifyingGlassIcon color="white" size="25" />
                         </TouchableOpacity>
                     </View>
                     {
                         locations.length > 0 && showSearch ? (
-                            <View style={styles.locationsContainer}>
+                            <View className = "abosolute w-full bg-gray-300 top-4 rounded-3xl">
                                 {
                                     locations.map((location, index) => {
                                         const showBorder = index + 1 !== locations.length;
+                                        const borderClass = showBorder? "border-b-2 border-b-gray-400" : " ";
                                         return (
                                             <TouchableOpacity
                                                 onPress={() => handleLocation(loc)}
                                                 key={index}
-                                                style={[styles.locationItem, showBorder && styles.locationItemBorder]}
+                                                className = {"flex-row items-center border-0 p-3 px-4 mb-1" + borderClass}
                                             >
                                                 <MapPinIcon size={20} color="gray" />
-                                                <Text style={styles.locationText}>London, United Kingdom</Text>
+                                                <Text className = "text-black text-lg ml-2">London, United Kingdom</Text>
                                             </TouchableOpacity>
                                         )
                                     })
@@ -63,42 +67,41 @@ export default function HomeScreen() {
                     }
                 </View>
                 {/* ForeCast Section */}
-                <View style={styles.forecastSection}>
-                    <Text style={styles.location}>
+                <View className = "mx-4 flex justify-around flex-1 mb-2">
+                    <Text className = "text-white text-2xl text-center font-bold">
                         London,
-                        <Text style={styles.country}> United Kingdom</Text>
+                        <Text className = "text-gray-300 text-2lg font-semibold"> United Kingdom</Text>
                     </Text>
-                    <View style={styles.weatherIconContainer}>
+                    <View className = "flex-row justify-center">
                         <Image
                             source={require("../assets/images/sunny.png")}
-                            style={styles.weatherIcon}
+                            className = "w-52 h-52"
                         />
                     </View>
-                    <View style={styles.temperatureContainer}>
-                        <Text style={styles.temperature}>
+                    <View className = "space-y-2">
+                        <Text className = "text-center font-bold text-white text-6xl ml-5">
                             23°
                         </Text>
-                        <Text style={styles.weatherDescription}>
+                        <Text className = "text-center text-white text-xl tracking-widest">
                             Sunny
                         </Text>
                     </View>
-                    <View style={styles.infoRow}>
-                        <View style={styles.infoItem}>
-                            <Image source={require("../assets/images/wind.png")} style={styles.infoIcon}/>
-                            <Text style={styles.infoText}>
+                    <View className = "flex-row justify-between mx-4">
+                        <View className = "flex-row space-x-2 item-center">
+                            <Image source={require("../assets/images/wind.png")} className = "w-6 h-6"/>
+                            <Text className = "text-white semi-bold text-base">
                                 22km/h
                             </Text>
                         </View>
-                        <View style={styles.infoItem}>
-                            <Image source={require("../assets/images/drop.png")} style={styles.infoIcon}/>
-                            <Text style={styles.infoText}>
-                                22%
+                        <View className = "flex-row space-x-2 item-center">
+                            <Image source={require("../assets/images/drop.png")} className = "w-6 h-6"/>
+                            <Text className = "text-white semi-bold text-base">
+                                10%
                             </Text>
-                        </View>
-                        <View style={styles.infoItem}>
-                            <Image source={require("../assets/images/sunrise.png")} style={styles.infoIcon}/>
-                            <Text style={styles.infoText}>
-                                6:05 AM
+                        </View><View className = "flex-row space-x-2 item-center">
+                            <Image source={require("../assets/images/sunrise.png")} className = "w-6 h-6"/>
+                            <Text className = "text-white semi-bold text-base">
+                                6:30 AM
                             </Text>
                         </View>
                     </View>
@@ -120,130 +123,3 @@ export default function HomeScreen() {
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        position: 'relative',
-    },
-    backgroundImage: {
-        position: 'absolute',
-        width: width,
-        height: height,
-    },
-    safeArea: {
-        flex: 1,
-    },
-    searchBarContainer: {
-        height: '7%',
-        marginHorizontal: 16,
-        position: 'relative',
-        zIndex: 50,
-    },
-    searchBar: {
-        flexDirection: 'row',
-        justifyContent: 'flex-end',
-        alignItems: 'center',
-        borderRadius: 30,
-        padding: 10,
-    },
-    textInput: {
-        flex: 1,
-        color: 'white',
-        paddingLeft: 12,
-    },
-    iconButton: {
-        borderRadius: 999,
-        padding: 8,
-        marginLeft: 8,
-    },
-    forecastSection: {
-        marginHorizontal: 16,
-        justifyContent: 'center',
-        flex: 1,
-        marginBottom: 8,
-    },
-    location: {
-        color: 'white',
-        textAlign: 'center',
-        fontSize: 24,
-        fontWeight: 'bold',
-    },
-    country: {
-        fontSize: 18,
-        fontWeight: '600', 
-        color: 'rgba(229, 231, 235, 1)', 
-    },
-    weatherIconContainer: {
-        flexDirection: 'row',
-        marginVertical: 40,
-        justifyContent: 'center',
-    },
-    weatherIcon: {
-        width: 208, 
-        height: 208,
-    },
-    temperatureContainer: {
-        alignItems: 'center',
-        marginBottom: 8,
-    },
-    temperature: {
-        color: 'white',
-        textAlign: 'center',
-        fontWeight: 'bold',
-        fontSize: 72,
-        marginLeft: 20,
-    },
-    weatherDescription: {
-        color: 'white',
-        textAlign: 'center',
-        fontSize: 25, 
-        letterSpacing: 0.025, 
-    },
-    infoRow: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginHorizontal: 16,
-        marginTop: 18,
-    },
-    infoItem: {
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    infoIcon: {
-        width: 24, 
-        height: 24,
-    },
-    infoText: {
-        color: 'white',
-        fontWeight: '600', 
-        fontSize: 16, 
-        marginLeft: 8,
-    },
-    locationsContainer: {
-        position: 'absolute',
-        width: '100%',
-        backgroundColor: '#D1D5DB', 
-        top: 64, 
-        borderRadius: 25,
-        padding: 12,
-        marginTop: 2,
-    },
-    locationItem: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        paddingVertical: 12,
-        paddingHorizontal: 16,
-        marginBottom: 4,
-        justifyContent: 'flex-start', 
-    },
-    locationItemBorder: {
-        borderBottomWidth: 2,
-        borderBottomColor: '#9CA3AF',
-    },
-    locationText: {
-        color: 'black',
-        fontSize: 18, 
-        marginLeft: 8,
-    },
-});
