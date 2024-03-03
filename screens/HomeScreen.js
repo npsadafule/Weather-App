@@ -112,11 +112,42 @@ export default function HomeScreen() {
                         <CalendarDaysIcon size="22" color="white" />
                         <Text className = "text-white text-base">Daily Forecast</Text>
                     </View>
-                    <ScrollView 
-                    horizontal 
-                    contentContainerStyle = {{paddingHorizontal: 15}}
-                    >
-                        <View className = "flex justify-center items-center w-24 rounded-3xl py-3 space-y1 mr-4"></View>
+                    <ScrollView horizontal contentContainerStyle = {{paddingHorizontal: 15}}>
+                        <View 
+                            className = "flex justify-center items-center w-24 rounded-3xl py-3 space-y1 mr-4"
+                            style = {{backgroundColor: theme.bgWhite(0.15) }}>
+                                <Image source = {require("../assets/images/heavyrain.png")} className = "h-11 w-11" /> 
+                                <Text className = "text-white">Monday</Text>
+                                <Text className = "text-white text-xl semi-bold">23°</Text>
+                        </View>
+                        <View 
+                            className = "flex justify-center items-center w-24 rounded-3xl py-3 space-y1 mr-4"
+                            style = {{backgroundColor: theme.bgWhite(0.15) }}>
+                                <Image source = {require("../assets/images/heavyrain.png")} className = "h-11 w-11" /> 
+                                <Text className = "text-white">Tuesday</Text>
+                                <Text className = "text-white text-xl semi-bold">23°</Text>
+                        </View>
+                        <View 
+                            className = "flex justify-center items-center w-24 rounded-3xl py-3 space-y1 mr-4"
+                            style = {{backgroundColor: theme.bgWhite(0.15) }}>
+                                <Image source = {require("../assets/images/heavyrain.png")} className = "h-11 w-11" /> 
+                                <Text className = "text-white">Wednesday</Text>
+                                <Text className = "text-white text-xl semi-bold">23°</Text>
+                        </View>
+                        <View 
+                            className = "flex justify-center items-center w-24 rounded-3xl py-3 space-y1 mr-4"
+                            style = {{backgroundColor: theme.bgWhite(0.15) }}>
+                                <Image source = {require("../assets/images/heavyrain.png")} className = "h-11 w-11" /> 
+                                <Text className = "text-white">Thursday</Text>
+                                <Text className = "text-white text-xl semi-bold">23°</Text>
+                        </View>
+                        <View 
+                            className = "flex justify-center items-center w-24 rounded-3xl py-3 space-y1 mr-4"
+                            style = {{backgroundColor: theme.bgWhite(0.15) }}>
+                                <Image source = {require("../assets/images/heavyrain.png")} className = "h-11 w-11" /> 
+                                <Text className = "text-white">Friday</Text>
+                                <Text className = "text-white text-xl semi-bold">23°</Text>
+                        </View>
                     </ScrollView>
                 </View>
             </SafeAreaView>
