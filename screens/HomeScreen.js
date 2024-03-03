@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { View, SafeAreaView, TextInput, TouchableOpacity, Image, StyleSheet, Dimensions, Text, ScrollView } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { theme } from '../theme';
+import  { debounce } from 'lodash';
 import { MagnifyingGlassIcon } from 'react-native-heroicons/outline';
 import {CalendarDaysIcon, MapPinIcon } from 'react-native-heroicons/solid';
-const { width, height } = Dimensions.get('window');
+import { fetchLocations } from '../api/weather.js';
 
 export default function HomeScreen() {
     const [showSearch, toggleSearch] = useState(false);
@@ -12,6 +13,14 @@ export default function HomeScreen() {
     const handleLocation = (loc) => {
         console.log('location:', loc);
     }
+    const handleSearch = value => {
+        if(value.length > 2) {
+            fetchLocations({cityName: value}).then(data => {
+            console.log('got Locations:', data);
+            })
+        }
+    }
+    const handleTextDebounce = useCallback(debounce(handleSearch, 1000), []);
     return (
         <View className = "flex-1 relative">
             <StatusBar style="light" />
@@ -29,6 +38,7 @@ export default function HomeScreen() {
                         {
                             showSearch?(
                                 <TextInput
+                                    onChangeText = {handleTextDebounce}
                                     placeholder='Search city'
                                     placeholderTextColor='lightgray'
                                     className = "pl-6 h-10 pb-1 flex-1 text-base text-white"
