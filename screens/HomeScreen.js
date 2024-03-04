@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { View, SafeAreaView, TextInput, TouchableOpacity, Image, StyleSheet, Dimensions, Text, ScrollView } from 'react-native';
+import { View, SafeAreaView, TextInput, TouchableOpacity, Image, Text, ScrollView } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { theme } from '../theme';
 import  { debounce } from 'lodash';
@@ -14,6 +14,7 @@ export default function HomeScreen() {
     const [locations, setLocations] = useState([]);
     const [weather, setWeather] = useState({});
     const [loading, setLoading] = useState(true);
+    const [bgClassName, setBgClassName] = useState('bg-sky-500');
     
     const handleLocation = (loc) => {
         //console.log('location:', loc);
@@ -26,6 +27,7 @@ export default function HomeScreen() {
             setWeather(data);
             setLoading(false);
             storeData("city", loc.name);
+            updateBackgroundBasedOnTime(data.location.localtime);
             //console.log('got forecast:', data);
         })
     }
@@ -52,17 +54,29 @@ export default function HomeScreen() {
         }).then(data => {
             setWeather(data);
             setLoading(false);
+            updateBackgroundBasedOnTime(data.location.localtime);
         })
     }
+
     const handleTextDebounce = useCallback(debounce(handleSearch, 1200), []);
+
+    const updateBackgroundBasedOnTime = (localtime) => {
+        const hour = parseInt(localtime.split(' ')[1].split(':')[0], 10);
+        if(hour >= 6 && hour < 18) {
+            setBgClassName('bg-sky-500');
+        } else {
+            setBgClassName('bg-gray-800'); 
+        }
+    };
 
     const {current, location} = weather;
 
     return (
-        <View className = "flex-1 relative">
+        <View className={`flex-1 relative ${bgClassName}`}>
             <StatusBar style="light" />
             <Image
                 blurRadius={30}
+                opacity ={0.5}
                 source={require("../assets/images/bg.png")}
                 className = "absolute h-full w-full"
             />
