@@ -1,5 +1,5 @@
 export const weatherImages = {
-    "Party cloudy" : require('../assets/images/partycloudy.png'),
+    "Party cloudy" : require('../assets/images/partlycloudy.png'),
     "Moderate rain" : require('../assets/images/moderaterain.png'),
     "Patchy rain possible" : require('../assets/images/moderaterain.png'),
     "Sunny" : require('../assets/images/sun.png'),
