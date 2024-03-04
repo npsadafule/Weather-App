@@ -7,6 +7,7 @@ import { MagnifyingGlassIcon } from 'react-native-heroicons/outline';
 import {CalendarDaysIcon, MapPinIcon } from 'react-native-heroicons/solid';
 import { fetchLocations, fetchWeatherForecast } from '../api/weather.js';
 import * as Progress from 'react-native-progress';
+import { getData, storeData } from '..//utils/asyncStorage.js';
 
 export default function HomeScreen() {
     const [showSearch, toggleSearch] = useState(false);
@@ -24,6 +25,7 @@ export default function HomeScreen() {
         }).then(data => {
             setWeather(data);
             setLoading(false);
+            storeData("city", loc.name);
             //console.log('got forecast:', data);
         })
     }
@@ -41,8 +43,11 @@ export default function HomeScreen() {
     },[])
 
     const fetchMyWeatherData = async() => {
+        let myCity =    await getData("city");
+        let cityName = "Vancouver";
+        if (myCity) cityName = myCity;
         fetchWeatherForecast({
-            cityName: 'Vancouver',
+            cityName,
             days: '7'
         }).then(data => {
             setWeather(data);
@@ -150,7 +155,7 @@ export default function HomeScreen() {
                                 </View><View className = "flex-row space-x-2 item-center">
                                     <Image source={require("../assets/images/sunrise.png")} className = "w-6 h-6"/>
                                     <Text className = "text-white semi-bold text-base">
-                                        6:30 AM
+                                        {weather?.forecast?.forecastday[0]?.astro?.sunrise}
                                     </Text>
                                 </View>
                             </View>
