@@ -16,11 +16,11 @@ Weather-App
 ├── api
 │ └── weather.js
 ├── assets
-│ └── images
-│ ├── bg.png
-│ ├── drop.png
-│ ├── sunrise.png
-│ └── wind.png
+│     └── images
+│     ├── bg.png
+│     ├── drop.png
+│     ├── sunrise.png
+│     └── wind.png
 ├── navigation
 │ └── appNavigation.js
 ├── screens
