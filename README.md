@@ -57,13 +57,13 @@ To run this project, you'll need to have Node.js installed on your system. Follo
 
 ## Usage
 Upon launching the app, you will be greeted with the current weather conditions for your location. You can search for other cities to view their weather conditions and forecast. The app saves your last searched city and automatically fetches its weather data on the next launch.
+## Important Note
+Please ensure you have your own API key from Weather API for the application to function correctly. The key.js file should be created in the constants directory with your API key:
 ```
 // key.js
 export const apiKey = "YOUR_API_KEY_HERE";
 ```
 This file is excluded from the git repository to protect the API key. Ensure you do not commit this file to any public repositories.
-## Important Note
-Please ensure you have your own API key from Weather API for the application to function correctly. The key.js file should be created in the constants directory with your API key:
 
 ## Contributing
 Contributions are welcome! If you have suggestions for improvements or bug fixes, please feel free to fork the repository and submit a pull request.
