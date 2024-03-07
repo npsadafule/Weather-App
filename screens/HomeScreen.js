@@ -183,7 +183,7 @@ export default function HomeScreen() {
                             <ScrollView horizontal contentContainerStyle = {{paddingHorizontal: 15}} showsHorizontalScrollIndicator = {false}>
                                 {
                                     weather?.forecast?.forecastday?.map((item, index) => {
-                                        let date = new Date(item.date); 
+                                        let date = new Date(item.date + 2); 
                                         let options = {weekday: 'long'};
                                         let dayName = date.toLocaleDateString('en-US', options);
                                         return(
